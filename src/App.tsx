@@ -3,8 +3,11 @@ import "./App.css";
 import type { Task } from "./types/task";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import type { Note } from "./types/note";
+import NotesSection from "./components/NotesSection";
 
 const TASKS_STORAGE_KEY = "todo-app-tasks";
+const NOTES_STORAGE_KEY = "todo-app-notes";
 
 type Filter = "all" | "active" | "completed";
 
@@ -35,6 +38,29 @@ function App() {
         JSON.stringify(tasks),
       );
     }, [tasks]);
+  const [notes, setNotes] = useState<Note[]>(() => {
+    const savedNotes = localStorage.getItem(NOTES_STORAGE_KEY);
+
+    if (savedNotes) {
+      try {
+        const parsedNotes: unknown = JSON.parse(savedNotes);
+
+        if (Array.isArray(parsedNotes)) {
+          return parsedNotes as Note[];
+        }
+      } catch {
+        return [];
+      }
+    }
+
+    return [];
+  });
+  useEffect(() => {
+  localStorage.setItem(
+    NOTES_STORAGE_KEY,
+    JSON.stringify(notes),
+  );
+}, [notes]);
 
   function addTask(title: string, category: string) {
     const newTask: Task = {
@@ -68,6 +94,21 @@ function App() {
 function deleteTask(id: string) {
   setTasks((currentTasks) =>
     currentTasks.filter((task) => task.id !== id),
+  );
+}
+function addNote(text: string) {
+  const newNote: Note = {
+    id: crypto.randomUUID(),
+    text,
+    createdAt: new Date().toISOString(),
+  };
+
+  setNotes((currentNotes) => [newNote, ...currentNotes]);
+}
+
+function deleteNote(id: string) {
+  setNotes((currentNotes) =>
+    currentNotes.filter((note) => note.id !== id),
   );
 }
 const filteredTasks = tasks.filter((task) => {
@@ -117,6 +158,11 @@ const filteredTasks = tasks.filter((task) => {
       onToggleTask={toggleTask}
       onEditTask={editTask}
       onDeleteTask={deleteTask}
+      />
+      <NotesSection
+        notes={notes}
+        onAddNote={addNote}
+        onDeleteNote={deleteNote}
       />
     </main>
   );
