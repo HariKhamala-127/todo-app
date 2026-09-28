@@ -3,3 +3,147 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.task-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+}
+
+.task-card h2 {
+  margin: 0 0 0.5rem;
+}
+
+.task-card p {
+  margin: 0.25rem 0;
+  color: #666;
+}
+
+.task-form {
+  display: flex;
+  gap: 0.75rem;
+  margin: 2rem 0;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.task-form button,
+.task-actions button {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-form button {
+  padding: 0.75rem 1rem;
+  background: #2563eb;
+  color: white;
+}
+
+.task-form button:hover {
+  background: #1d4ed8;
+}
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task-actions button {
+  padding: 0.6rem 0.8rem;
+  color: white;
+}
+
+.complete-button {
+  background: #2563eb;
+}
+
+.completed-button {
+  background: #198754;
+}
+
+.edit-button,
+.save-button {
+  background: #6f42c1;
+}
+
+.cancel-button {
+  background: #6c757d;
+}
+
+.delete-button {
+  background: #dc3545;
+}
+
+.task-completed {
+  color: #777;
+  text-decoration: line-through;
+}
+
+.edit-fields {
+  display: flex;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.edit-fields input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+@media (max-width: 700px) {
+  .task-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .task-form,
+  .edit-fields {
+    flex-direction: column;
+  }
+
+  .task-actions {
+    justify-content: flex-start;
+  }
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.filter-buttons button {
+  padding: 0.6rem 1rem;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  background: white;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.filter-buttons button:hover,
+.filter-buttons .selected-filter {
+  background: #2563eb;
+  color: white;
+}
